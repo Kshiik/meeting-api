@@ -20,3 +20,7 @@ WORKDIR /var/www/html
 
 # Устанавливаем зависимости
 RUN composer install --no-dev --optimize-autoloader
+
+# После этого настрой DocumentRoot:
+RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf && \
+    a2enmod rewrite
