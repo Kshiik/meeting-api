@@ -8,6 +8,10 @@ RUN apt-get update && apt-get install -y \
 # Установка Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Настройка Apache: меняем DocumentRoot на public/ и включаем mod_rewrite
+RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf && \
+    a2enmod rewrite
+
 # Копируем проект
 COPY . /var/www/html
 
@@ -16,6 +20,3 @@ WORKDIR /var/www/html
 
 # Устанавливаем зависимости
 RUN composer install --no-dev --optimize-autoloader
-
-# Настройки Apache
-RUN a2enmod rewrite
