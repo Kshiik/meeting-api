@@ -8,17 +8,16 @@ RUN apt-get update && apt-get install -y \
 # Установка Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Копируем только composer.json и lock для установки зависимостей
+# Копируем composer файлы (чтобы не затирались после полной копии проекта)
 COPY composer.json composer.lock /var/www/html/
 
+# Установка зависимостей
 WORKDIR /var/www/html
-
-# Устанавливаем зависимости
 RUN composer install --no-dev --optimize-autoloader
 
-# Теперь копируем оставшиеся файлы проекта (src/, public/, config/ и т.д.)
+# Копируем остальной проект (src/, public/ и т.д.)
 COPY . /var/www/html
 
-# Настройка Apache
+# Настраиваем Apache
 RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf && \
     a2enmod rewrite
