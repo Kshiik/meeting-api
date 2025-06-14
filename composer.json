@@ -83,10 +83,7 @@
         "symfony/polyfill-php82": "*"
     },
     "scripts": {
-        "post-install-cmd": [
-            "php bin/console cache:clear",
-            "php bin/console assets:install public"
-        ]
+        
     },
     "conflict": {
         "symfony/symfony": "*"
