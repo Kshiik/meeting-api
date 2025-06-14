@@ -1,6 +1,8 @@
 <?php
 
 use App\Kernel;
+use Symfony\Component\Runtime\Runner\SymfonyApplicationRunner;
+use Symfony\Component\Runtime\GenericRuntime;
 
 require_once __DIR__.'/vendor/autoload_runtime.php';
 
