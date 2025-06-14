@@ -1,8 +1,0 @@
-services:
-  - type: web
-    name: meeting-api
-    env: php
-    buildCommand: "./build.sh"
-    startCommand: "php -S 0.0.0.0:10000 -t public"
-    plan: free
-    phpVersion: 8.2
